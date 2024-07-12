@@ -32,17 +32,17 @@ const CadastrarTarefa: React.FC = () => {
     const [descricao, setDescricao] = useState('');
     const [categoriaId, setCategoriaId] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+ const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch('/api/tarefa/cadastrar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ nome, descricao, categoriaId, status: 'Não iniciada' })
-        });
+        axios.post('/api/tarefa/cadastrar', {
+            nome,
+            descricao,
+            categoriaId,
+            status: 'Não iniciada'
+        })
+        .then(response => console.log('Tarefa cadastrada:', response.data))
+        .catch(error => console.error('Erro ao cadastrar tarefa:', error));
     };
-
     return (
         <div>
             <h1>Cadastrar Tarefa</h1>
